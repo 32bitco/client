@@ -10,7 +10,7 @@
 
 </div>
 
->  Nexus formal definition: a relationship or connection between people or things. [Source](https://www.merriam-webster.com/dictionary/nexus).
+> Nexus formal definition: a relationship or connection between people or things. [Source](https://www.merriam-webster.com/dictionary/nexus).
 
 # Development
 
