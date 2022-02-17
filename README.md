@@ -5,8 +5,8 @@
 
 <div align="center">
 
-![Build](https://github.com/32bitco/client/workflows/build/badge.svg)
-![Lint](https://github.com/32bitco/client/workflows/lint/badge.svg)
+![Build](https://github.com/whizzbit/nexus-client/workflows/build/badge.svg)
+![Lint](https://github.com/whizzbit/nexus-client/workflows/lint/badge.svg)
 
 </div>
 
@@ -24,7 +24,7 @@
 1. Clone this repository
 
 ```bash
-git clone https://github.com/32bitco/client.git
+git clone https://github.com/whizzbit/nexus-client.git
 ```
 
 2. In a separate terminal session, install project dependencies.
