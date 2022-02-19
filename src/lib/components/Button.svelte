@@ -14,7 +14,7 @@
 	});
 </script>
 
-<button class={className}>
+<button class={className} on:click>
 	{#if icon}
 		<figure class="mr-1 text-lg">
 			<svelte:component this={icon} />
