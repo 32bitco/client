@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
 	import LogIn from './LogIn.svelte';
-
+	import SignUp from './SignUp.svelte';
 	let useCase: 'login' | 'signup' = 'login';
 </script>
 
@@ -17,7 +17,7 @@
 	{#if useCase === 'login'}
 		<LogIn changeUseCase={() => (useCase = 'signup')} />
 	{:else}
-		<h1>Signup Form</h1>
+		<SignUp/>
 		<Button label="Already have an account" on:click={() => (useCase = 'login')} />
 	{/if}
 </div>
