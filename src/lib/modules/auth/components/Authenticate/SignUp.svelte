@@ -63,7 +63,6 @@
 		on:change={handleChange}
 	/>
 	<div class="flex items-center">
-		<Button label="Create an account" variant="primary" />
-        <Button label="Already have an account" on:click={() => (useCase = 'login')} />
+		<Button label="Create account" variant="primary" />
 	</div>
 </form>
