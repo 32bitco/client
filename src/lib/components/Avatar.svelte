@@ -4,7 +4,7 @@
 	import type { User } from '$lib/types/domain';
 
 	export let user: User;
-	export let size: 'small' = 'small';
+	export let size = 'small';
 
 	const sizeClassNames = classNames({
 		'h-[25px] w-[25px]': size === 'small'

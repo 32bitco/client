@@ -3,7 +3,7 @@
 
 	import type { Variant } from '$lib/types/components';
 
-	export let fullWidth: boolean = false;
+	export let fullWidth = false;
 	export let label: string | undefined = undefined;
 	export let variant: Variant = 'default';
 	export let icon: any | null = null;
