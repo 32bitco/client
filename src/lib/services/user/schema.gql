@@ -1,0 +1,16 @@
+fragment UserFragment on User {
+  id
+  name
+  lastName
+  email
+  username
+  birthdate
+  createdAt
+  updatedAt
+}
+
+mutation UserCreate($input: UserCreateInput!) {
+  userCreate(input: $input) {
+    ...UserFragment
+  }
+}

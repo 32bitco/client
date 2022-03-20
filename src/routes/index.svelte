@@ -1,1 +1,5 @@
-<h1>Authenticate</h1>
+<script lang="ts">
+  import Authenticate from '$lib/components/Authenticate/index.svelte';
+</script>
+
+<Authenticate />
