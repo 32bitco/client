@@ -36,7 +36,7 @@
     "graphql-tag": "^2.12.6",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.5",
-    "manzana": "^0.2.3",
+    "manzana": "^0.2.5",
     "phosphor-svelte": "^1.1.2",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
