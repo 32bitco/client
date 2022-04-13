@@ -7,6 +7,16 @@ import type { RequestEvent } from '@sveltejs/kit/types/internal';
 
 dotenv.config();
 
+export type Unsplash = {
+  url: string;
+  author: {
+    id: string;
+    username: string;
+    url: string;
+    avatar: string;
+  };
+};
+
 export async function get(event: RequestEvent) {
   const cookiesHeader = event.request.headers.get('cookie') || '';
   const cookies = parse(cookiesHeader);
@@ -25,7 +35,7 @@ export async function get(event: RequestEvent) {
   });
 
   const result = await unsplash.search.getPhotos({
-    query: 'beach'
+    query: 'mountain'
   });
 
   if (result.status === 200) {

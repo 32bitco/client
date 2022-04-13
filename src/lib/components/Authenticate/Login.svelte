@@ -1,23 +1,21 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
+  import Input from '../Input.svelte';
+
   const dispatch = createEventDispatcher();
 </script>
 
 <div>
   <form on:submit={() => console.log('Submit')}>
     <div>
-      <label for="email">Email: </label>
-      <input type="text" name="email" id="email" required />
+      <Input type="email" name="email" label="Email" />
     </div>
     <div>
-      <label for="password">Password: </label>
-      <input type="password" name="password" id="password" required />
+      <Input type="password" name="password" label="Password" />
     </div>
-    <div>
+    <div class="md:grid md:grid-cols-2 md:gap-4">
       <input type="submit" value="Login" />
+      <button on:click={() => dispatch('toggleForm')}>Create an account</button>
     </div>
   </form>
-  <div>
-    <button on:click={() => dispatch('toggleForm')}>Create an account</button>
-  </div>
 </div>
