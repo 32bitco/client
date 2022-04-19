@@ -22,7 +22,7 @@ jobs:
       - name: Generate GraphQL Schemas
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
-        run: npm run gql:generate
+        run: npm run gql:generate:publish
 
       - name: Build project
         run: npm run build

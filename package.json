@@ -6,6 +6,7 @@
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "gql:generate": "DOTENV_CONFIG_PATH=.env graphql-codegen --require dotenv/config --config graphql-codegen.yml",
+    "gql:generate:publish": "graphql-codegen --config graphql-codegen.yml",
     "package": "svelte-kit package",
     "preview": "svelte-kit preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
