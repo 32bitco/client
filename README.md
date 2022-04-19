@@ -5,8 +5,8 @@
 
 <div align="center">
 
-![Build](https://github.com/whizzbit/nexus-client/workflows/build/badge.svg)
-![Lint](https://github.com/whizzbit/nexus-client/workflows/lint/badge.svg)
+![Build](https://github.com/whizzbit/nexus/workflows/build/badge.svg)
+![Lint](https://github.com/whizzbit/nexus/workflows/lint/badge.svg)
 
 </div>
 
