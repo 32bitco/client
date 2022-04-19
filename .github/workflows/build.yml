@@ -19,5 +19,10 @@ jobs:
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
+      - name: Generate GraphQL Schemas
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        run: npm run gql:generate
+
       - name: Build project
         run: npm run build
