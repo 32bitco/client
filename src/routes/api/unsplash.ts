@@ -45,7 +45,7 @@ export async function get(event: RequestEvent) {
     today.setDate(today.getDate() + 1);
 
     const response = {
-      url: image.urls.full,
+      url: image.urls.regular,
       author: {
         id: image.user.id,
         username: image.user.username,

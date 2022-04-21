@@ -9,8 +9,15 @@ fragment UserFragment on User {
   updatedAt
 }
 
-mutation RegisterAccount($input: AccountRegisterInput!) {
+mutation AccountRegister($input: AccountRegisterInput!) {
   accountRegister(input: $input) {
-    ...UserFragment
+    user {
+      ...UserFragment
+    }
+    error {
+      field
+      message
+      code
+    }
   }
 }

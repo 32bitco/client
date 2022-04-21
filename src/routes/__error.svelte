@@ -1,7 +1,11 @@
 <script lang="ts" context="module">
   import type { ErrorLoadInput } from '@sveltejs/kit';
 
-  export function load({ status }: ErrorLoadInput) {
+  export function load({ error, status }: ErrorLoadInput) {
+    if (import.meta.env.DEV) {
+      console.log(error);
+    }
+
     return {
       props: {
         status

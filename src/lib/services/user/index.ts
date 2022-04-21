@@ -1,5 +1,5 @@
 import { urqlClient } from '$lib/utils/urql';
-import { RegisterAccountDocument } from '$lib/graphql/schema';
+import { AccountRegisterDocument } from '$lib/graphql/schema';
 import { UniqueError } from '$lib/errors/UniqueError';
 
 import type { AccountRegisterInput, UserFragmentFragment } from '$lib/graphql/schema';
@@ -12,8 +12,8 @@ export type UserService = {
 
 function makeUserService(): UserService {
   const accountRegister: AccountRegister = async (input: AccountRegisterInput) => {
-    const { data = {}, error } = await urqlClient
-      .mutation(RegisterAccountDocument, {
+    const { data = { accountRegister }, error } = await urqlClient
+      .mutation(AccountRegisterDocument, {
         input
       })
       .toPromise();

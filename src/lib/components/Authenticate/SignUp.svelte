@@ -1,6 +1,7 @@
 <script lang="ts">
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
+  import * as Yup from 'yup';
 
   import Input from '$lib/components/Input.svelte';
   import { userService } from '$lib/services/user';
@@ -9,8 +10,7 @@
   let error = null;
 
   const dispatch = createEventDispatcher();
-  const now = new Date();
-  const { handleSubmit, values } = newForm<{
+  const { handleSubmit, values, errors } = newForm<{
     name: string;
     lastName: string;
     email: string;
@@ -28,8 +28,20 @@
       confirmPassword: '',
       birthdate: new Date()
     },
+    validationSchema: Yup.object({
+      name: Yup.string().required(),
+      lastName: Yup.string().required(),
+      email: Yup.string().email().required(),
+      username: Yup.string().required(),
+      password: Yup.string().required(),
+      confirmPassword: Yup.string()
+        .required()
+        .oneOf([Yup.ref('password')]),
+      birthdate: Yup.date().required()
+    }),
     onSubmit: async (values) => {
       try {
+        console.log(values);
         error = null;
 
         const birthdate = new Date(values.birthdate).toJSON();
@@ -48,40 +60,63 @@
           return;
         }
 
-        // TODO: Show general error
+        error = 'Ocurrio un error!';
       }
     }
   });
 </script>
 
-<div>
-  <form on:submit={handleSubmit}>
-    <fieldset class="md:grid md:grid-cols-2 md:gap-4">
-      <Input type="text" label="Name" name="name" bind:value={$values.name} />
-      <Input type="text" label="Last name" name="lastName" bind:value={$values.lastName} />
-    </fieldset>
-    <fieldset class="md:grid md:grid-cols-2 md:gap-4">
-      <Input type="email" label="Email" name="email" bind:value={$values.email} />
-      <Input type="text" label="Username" name="username" bind:value={$values.username} />
-    </fieldset>
-    <fieldset class="md:grid md:grid-cols-2 md:gap-4">
-      <Input type="password" label="Password" name="password" bind:value={$values.password} />
-      <Input
-        type="password"
-        label="Confirm Password"
-        name="confirmPassword"
-        bind:value={$values.confirmPassword}
-      />
-    </fieldset>
-    <fieldset class="md:grid md:grid-cols-2 md:gap-4">
-      <Input type="date" label="Birthdate" name="birthdate" bind:value={$values.birthdate} />
-    </fieldset>
-    <p class="text-red-600" class:hidden={!error}>
-      {error}
-    </p>
-    <fieldset class="md:grid md:grid-cols-2 md:gap-4 my-2">
-      <input type="submit" value="Create an account" />
-      <button on:click={() => dispatch('toggleForm')}>Login into your account</button>
-    </fieldset>
-  </form>
-</div>
+<form class="flex flex-col w-full md:w-[520px]" on:submit={handleSubmit}>
+  <div class="md:grid md:grid-cols-2 md:gap-4">
+    <Input type="text" label="Name" name="name" error={$errors.name} bind:value={$values.name} />
+    <Input
+      type="text"
+      label="Last name"
+      name="lastName"
+      error={$errors.lastName}
+      bind:value={$values.lastName}
+    />
+    <Input
+      type="email"
+      label="Email"
+      name="email"
+      error={$errors.email}
+      bind:value={$values.email}
+    />
+    <Input
+      type="text"
+      label="Username"
+      name="username"
+      error={$errors.username}
+      bind:value={$values.username}
+    />
+    <Input
+      type="password"
+      label="Password"
+      name="password"
+      error={$errors.password}
+      bind:value={$values.password}
+    />
+    <Input
+      type="password"
+      label="Confirm Password"
+      name="confirmPassword"
+      error={$errors.confirmPassword}
+      bind:value={$values.confirmPassword}
+    />
+    <Input
+      type="date"
+      label="Birthdate"
+      name="birthdate"
+      error={$errors.birthdate}
+      bind:value={$values.birthdate}
+    />
+  </div>
+  <p class:opacity-0={!error} class="text-red-600">
+    {error}
+  </p>
+  <div class="flex justify-evenly">
+    <button type="submit">Create account</button>
+    <button on:click={() => dispatch('toggleForm')}>Login into your account</button>
+  </div>
+</form>

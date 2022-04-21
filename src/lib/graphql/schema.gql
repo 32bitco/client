@@ -1,5 +1,0 @@
-query TotalUsers {
-  users {
-    totalCount
-  }
-}
