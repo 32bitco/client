@@ -1,0 +1,177 @@
+type AccountRegister {
+  error: AccountRegisterError
+  user: User
+}
+
+type AccountRegisterError {
+  code: AccountRegisterErrorCode!
+  field: String!
+  message: String!
+}
+
+enum AccountRegisterErrorCode {
+  USERNAME_TAKEN
+}
+
+input AccountRegisterInput {
+  birthdate: DateTime!
+  customGender: String
+  email: String!
+  gender: Gender!
+  lastName: String!
+  name: String!
+  password: String!
+  pronoun: Pronoun!
+  username: String!
+}
+
+"""
+Implement the DateTime<Utc> scalar
+
+The input/output is a string in RFC3339 format.
+"""
+scalar DateTime
+
+enum Gender {
+  CUSTOM
+  FEMALE
+  MALE
+}
+
+type Me {
+  error: UserError
+  me: User
+}
+
+type Mutation {
+  accountRegister(input: AccountRegisterInput!): AccountRegister!
+  tokenCreate(password: String!, username: String!): TokenCreate!
+}
+
+"""
+Information about pagination in a connection
+"""
+type PageInfo {
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+}
+
+enum Pronoun {
+  HE
+  SHE
+  THEY
+}
+
+type Query {
+  me: Me!
+  users(after: String, before: String, first: Int, last: Int): Users!
+}
+
+type TokenCreate {
+  error: TokenCreateError
+  tokens: Tokens
+}
+
+type TokenCreateError {
+  code: TokenCreateErrorCode!
+  field: String
+  message: String
+}
+
+enum TokenCreateErrorCode {
+  INVALID_CREDENTIALS
+}
+
+type Tokens {
+  accessToken: String!
+}
+
+"""
+A UUID is a unique 128-bit number, stored as 16 octets. UUIDs are parsed as Strings
+within GraphQL. UUIDs are used to assign unique identifiers to entities without requiring a central
+allocating authority.
+
+# References
+
+* [Wikipedia: Universally Unique Identifier](http://en.wikipedia.org/wiki/Universally_unique_identifier)
+* [RFC4122: A Universally Unique IDentifier (UUID) URN Namespace](http://tools.ietf.org/html/rfc4122)
+"""
+scalar UUID
+
+type User {
+  birthdate: DateTime!
+  createdAt: DateTime!
+  customGender: String
+  email: String!
+  gender: Gender!
+  id: UUID!
+  lastName: String!
+  name: String!
+  pronoun: Pronoun!
+  updatedAt: DateTime!
+  username: String!
+}
+
+type UserConnection {
+  """
+  A list of edges.
+  """
+  edges: [UserEdge]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Total result set count
+  """
+  totalCount: Int!
+}
+
+"""
+An edge in a connection.
+"""
+type UserEdge {
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge
+  """
+  node: User!
+}
+
+type UserError {
+  code: UserErrorCode!
+  field: String
+  message: String
+}
+
+enum UserErrorCode {
+  UNAUTHORIZED
+}
+
+type Users {
+  error: UserError
+  users: UserConnection
+}

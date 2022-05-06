@@ -32,27 +32,19 @@ git clone https://github.com/whizzbit/nexus-client.git
 npm install
 ```
 
-3. Run the server
+3. Generate Houdini files
+
+```bash
+npm run generate
+```
+
+4. Run the server
 
 ```bash
 npm run dev
 ```
 
 The project must be available on http://localhost:3000.
-
-## GraphQL Code Generation
-
-This project make use of URQL and GraphQL Codegen to interact with the
-[server][1] GraphQL API. You must generate GraphQL server bindings and then
-import them to perform any queries or mutations.
-
-> Make sure a `.env` file is available with the same contents as `.env.example`.
-
-> Make sure `VITE_API_URL` points to an instance of [nexus-server][1]
-
-Execute `npm run gql:generate` to generate the `src/lib/graphql/schema.ts`
-file. You must import any queries and mutations from this file and use them in
-the service implementation.
 
 # Contributing
 

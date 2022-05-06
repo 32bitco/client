@@ -2,12 +2,33 @@
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
+  import { mutation, graphql, AccountRegisterErrorCode } from '$houdini';
 
   import Input from '$lib/components/Input.svelte';
-  import { userService } from '$lib/services/user';
-  import { UniqueError } from '$lib/errors/UniqueError';
 
   let error = null;
+
+  const accountRegister = mutation(graphql`
+    mutation AccountRegister($input: AccountRegisterInput!) {
+      accountRegister(input: $input) {
+        user {
+          id
+          name
+          lastName
+          email
+          username
+          birthdate
+          createdAt
+          updatedAt
+        }
+        error {
+          field
+          message
+          code
+        }
+      }
+    }
+  `);
 
   const dispatch = createEventDispatcher();
   const { handleSubmit, values, errors } = newForm<{
@@ -41,23 +62,37 @@
     }),
     onSubmit: async (values) => {
       try {
-        console.log(values);
         error = null;
 
-        const birthdate = new Date(values.birthdate).toJSON();
-
-        await userService.accountRegister({
-          name: values.name,
-          lastName: values.lastName,
-          email: values.email,
-          password: values.password,
-          username: values.username,
-          birthdate
+        const result = await accountRegister({
+          input: {
+            name: values.name,
+            lastName: values.lastName,
+            email: values.email,
+            password: values.password,
+            username: values.username,
+            birthdate: new Date(values.birthdate),
+            gender: 'CUSTOM',
+            customGender: 'Custom',
+            pronoun: 'HE'
+          }
         });
+
+        if (result.error === null) {
+          const { name } = result.user;
+
+          console.log(`Welcome to Nexus ${name}!`);
+        }
       } catch (err) {
-        if (err instanceof UniqueError) {
-          error = `El campo ${err.field} debe ser unico.`;
-          return;
+        if (Array.isArray(err)) {
+          // GraphQL Handled Error
+          const [firstError] = err;
+          const { extensions } = firstError;
+
+          if (extensions.code === AccountRegisterErrorCode.USERNAME_TAKEN) {
+            error = 'The username is already taken';
+            return;
+          }
         }
 
         error = 'Ocurrio un error!';
