@@ -5,12 +5,13 @@
 
   import Input from '$lib/components/Input.svelte';
   import { userService } from '$lib/services/user';
-  import { UniqueError } from '$lib/errors/UniqueError';
+  import { AccountRegisterError } from '$lib/errors/AccountCreateError';
+  import { AccountRegisterErrorCode, Gender, Pronoun } from '$lib/graphql/schema';
 
   let error = null;
 
   const dispatch = createEventDispatcher();
-  const { handleSubmit, values, errors } = newForm<{
+  const { handleSubmit, values, errors, isSubmitting } = newForm<{
     name: string;
     lastName: string;
     email: string;
@@ -41,7 +42,6 @@
     }),
     onSubmit: async (values) => {
       try {
-        console.log(values);
         error = null;
 
         const birthdate = new Date(values.birthdate).toJSON();
@@ -52,15 +52,21 @@
           email: values.email,
           password: values.password,
           username: values.username,
-          birthdate
+          birthdate,
+          gender: Gender.Male,
+          pronoun: Pronoun.He,
+          customGender: null
         });
       } catch (err) {
-        if (err instanceof UniqueError) {
-          error = `El campo ${err.field} debe ser unico.`;
-          return;
+        if (err instanceof AccountRegisterError) {
+          switch (err.code) {
+            case AccountRegisterErrorCode.UsernameTaken:
+              error = 'Username is taken';
+              return;
+          }
         }
 
-        error = 'Ocurrio un error!';
+        error = 'An error ocurred!';
       }
     }
   });
@@ -116,7 +122,9 @@
     {error}
   </p>
   <div class="flex justify-evenly">
-    <button type="submit">Create account</button>
-    <button on:click={() => dispatch('toggleForm')}>Login into your account</button>
+    <button type="submit" disabled={$isSubmitting}>Create account</button>
+    <button on:click={() => dispatch('toggleForm')} disabled={$isSubmitting}
+      >Login into your account</button
+    >
   </div>
 </form>

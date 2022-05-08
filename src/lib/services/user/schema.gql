@@ -1,3 +1,15 @@
+fragment AccountRegisterErrorFragment on AccountRegisterError {
+  code
+  field
+  message
+}
+
+fragment UserErrorFragment on UserError {
+  code
+  field
+  message
+}
+
 fragment UserFragment on User {
   id
   name
@@ -5,8 +17,22 @@ fragment UserFragment on User {
   email
   username
   birthdate
+  gender
+  pronoun
+  customGender
   createdAt
   updatedAt
+}
+
+query Me {
+  me {
+    me {
+      ...UserFragment
+    }
+    error {
+      ...UserErrorFragment
+    }
+  }
 }
 
 mutation AccountRegister($input: AccountRegisterInput!) {
@@ -15,9 +41,7 @@ mutation AccountRegister($input: AccountRegisterInput!) {
       ...UserFragment
     }
     error {
-      field
-      message
-      code
+      ...AccountRegisterErrorFragment
     }
   }
 }

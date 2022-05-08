@@ -1,6 +1,6 @@
 import { urqlClient } from '$lib/utils/urql';
 import { AccountRegisterDocument } from '$lib/graphql/schema';
-import { UniqueError } from '$lib/errors/UniqueError';
+import { AccountRegisterError } from '$lib/errors/AccountCreateError';
 
 import type { AccountRegisterInput, UserFragmentFragment } from '$lib/graphql/schema';
 
@@ -18,25 +18,17 @@ function makeUserService(): UserService {
       })
       .toPromise();
 
-    if (error) {
-      const extensions = (
-        error.graphQLErrors[0].originalError as unknown as {
-          extensions: {
-            code: string;
-            field: string;
-          };
-        }
-      ).extensions;
-      const { code, field } = extensions;
+    if (data.accountRegister.error) {
+      const err = AccountRegisterError.from(error[0]);
 
-      if (code === 'UNIQUE') {
-        throw new UniqueError(field);
-      }
-
-      throw new Error(`An error ocurred: ${code}`);
+      throw err;
     }
 
-    return data.accountRegister;
+    if (error) {
+      throw error;
+    }
+
+    return data.accountRegister.user;
   };
 
   return {
