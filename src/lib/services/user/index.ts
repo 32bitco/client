@@ -12,7 +12,7 @@ export type UserService = {
 
 function makeUserService(): UserService {
   const accountRegister: AccountRegister = async (input: AccountRegisterInput) => {
-    const { data = { accountRegister }, error } = await urqlClient
+    const { data = {}, error } = await urqlClient
       .mutation(AccountRegisterDocument, {
         input
       })

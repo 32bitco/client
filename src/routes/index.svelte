@@ -29,6 +29,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>Nexus | Authentication</title>
+</svelte:head>
+
 <div
   style="background-image: url('{unsplash.url}');"
   class="transition-[background] bg-black flex items-center justify-center min-h-screen bg-cover bg-no-repeat bg-center"

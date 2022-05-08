@@ -1,0 +1,20 @@
+fragment TokenCreateErrorFragment on TokenCreateError {
+  code
+  field
+  message
+}
+
+fragment TokensFragment on Tokens {
+  accessToken
+}
+
+mutation TokenCreate($username: String!, $password: String!) {
+  tokenCreate(username: $username, password: $password) {
+    tokens {
+      ...TokensFragment
+    }
+    error {
+      ...TokenCreateErrorFragment
+    }
+  }
+}
