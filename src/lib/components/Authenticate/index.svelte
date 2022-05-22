@@ -2,7 +2,7 @@
   import Login from './Login.svelte';
   import SignUp from './SignUp.svelte';
 
-  let isLogin = false;
+  let isLogin = true;
 
   function handleToggleForm() {
     isLogin = !isLogin;

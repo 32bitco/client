@@ -3,7 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
 
-  import { authService } from '$lib/services/auth';
+  import { userStore } from '$lib/stores/user';
   import { TokenCreateError } from '$lib/errors/TokenCreateError';
   import { TokenCreateErrorCode } from '$lib/graphql/schema';
 
@@ -28,7 +28,7 @@
       try {
         error = null;
 
-        await authService.createToken(username, password);
+        await userStore.login(username, password);
       } catch (err) {
         if (err instanceof TokenCreateError) {
           switch (err.code) {

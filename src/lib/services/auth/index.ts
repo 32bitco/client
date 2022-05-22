@@ -12,14 +12,14 @@ export type AuthService = {
 
 function makeAuthService(): AuthService {
   const createToken: TokenCreate = async (username, password) => {
-    const { data = {}, error } = await urqlClient
+    const { data, error } = await urqlClient
       .mutation(TokenCreateDocument, {
         username,
         password
       })
       .toPromise();
 
-    if (data.accountRegister.error) {
+    if (data?.tokenCreate.error) {
       const err = TokenCreateError.from(error[0]);
 
       throw err;
@@ -28,6 +28,8 @@ function makeAuthService(): AuthService {
     if (error) {
       throw error;
     }
+
+    localStorage.setItem('token', data.tokenCreate.tokens.accessToken);
 
     return data.tokenCreate.tokens;
   };
