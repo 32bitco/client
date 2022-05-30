@@ -1,7 +1,7 @@
-import { urqlClient } from '$lib/utils/urql';
 import { TokenCreateDocument } from '$lib/graphql/schema';
 import { TokenCreateError } from '$lib/errors/TokenCreateError';
 
+import type { Client } from '@urql/svelte';
 import type { TokensFragmentFragment } from '$lib/graphql/schema';
 
 export type TokenCreate = (username: string, password: string) => Promise<TokensFragmentFragment>;
@@ -10,7 +10,7 @@ export type AuthService = {
   createToken: TokenCreate;
 };
 
-function makeAuthService(): AuthService {
+export function makeAuthService(urqlClient: Client): AuthService {
   const createToken: TokenCreate = async (username, password) => {
     const { data, error } = await urqlClient
       .mutation(TokenCreateDocument, {
@@ -38,5 +38,3 @@ function makeAuthService(): AuthService {
     createToken
   };
 }
-
-export const authService: AuthService = makeAuthService();

@@ -1,7 +1,7 @@
-import { urqlClient } from '$lib/utils/urql';
 import { AccountRegisterDocument, MeDocument } from '$lib/graphql/schema';
 import { AccountRegisterError } from '$lib/errors/AccountCreateError';
 
+import type { Client } from '@urql/svelte';
 import type { AccountRegisterInput, UserFragmentFragment } from '$lib/graphql/schema';
 
 export type AccountRegister = (input: AccountRegisterInput) => Promise<UserFragmentFragment>;
@@ -13,7 +13,7 @@ export type UserService = {
   me: Me;
 };
 
-function makeUserService(): UserService {
+export function makeUserService(urqlClient: Client): UserService {
   const accountRegister: AccountRegister = async (input: AccountRegisterInput) => {
     const { data = {}, error } = await urqlClient
       .mutation(AccountRegisterDocument, {
@@ -56,5 +56,3 @@ function makeUserService(): UserService {
     me
   };
 }
-
-export const userService: UserService = makeUserService();

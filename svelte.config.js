@@ -14,6 +14,9 @@ const config = {
   kit: {
     adapter: adapter(),
     vite: {
+      optimizeDeps: {
+        exclude: ['@urql/svelte']
+      },
       css: {
         postcss: {
           plugins: [

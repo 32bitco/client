@@ -1,0 +1,42 @@
+fragment PostErrorFragment on PostError {
+  code
+  field
+  message
+}
+
+fragment PostFragment on Post {
+  id
+  content
+  user {
+    ...UserFragment
+  }
+  scope
+  createdAt
+  updatedAt
+}
+
+mutation CreatePost($input: PostCreateInput!) {
+  postCreate(input: $input) {
+    post {
+      ...PostFragment
+    }
+    error {
+      ...PostErrorFragment
+    }
+  }
+}
+
+query Feed($first: Int) {
+  feed(first: $first) {
+    feed {
+      edges {
+        node {
+          ...PostFragment
+        }
+      }
+    }
+    error {
+      ...PostErrorFragment
+    }
+  }
+}

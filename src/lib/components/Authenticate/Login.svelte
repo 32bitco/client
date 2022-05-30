@@ -3,6 +3,7 @@
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
 
+  import Button from '$lib/components/Button.svelte';
   import { userStore } from '$lib/stores/user';
   import { TokenCreateError } from '$lib/errors/TokenCreateError';
   import { TokenCreateErrorCode } from '$lib/graphql/schema';
@@ -65,9 +66,9 @@
       />
     </div>
     <div class="md:grid md:grid-cols-2 md:gap-4">
-      <button type="submit" disabled={$isSubmitting}>Login</button>
-      <button disabled={$isSubmitting} on:click={() => dispatch('toggleForm')}
-        >Create an account</button
+      <Button type="submit" disabled={$isSubmitting}>Login</Button>
+      <Button disabled={$isSubmitting} on:click={() => dispatch('toggleForm')}
+        >Create an account</Button
       >
     </div>
   </form>
