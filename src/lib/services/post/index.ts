@@ -14,7 +14,7 @@ export type PostService = {
   feed: Feed;
 };
 
-function makePostService(): PostService {
+export function makePostService(): PostService {
   const createPost: CreatePost = async (input: PostCreateInput) => {
     const urqlClient = getContextClient();
     const { data = {}, error } = await urqlClient
