@@ -1,7 +1,21 @@
 <script lang="ts">
+  import { makePostService } from '$lib/services/post';
+
   import Card from './Card.svelte';
   import Input from './Input.svelte';
   import Button from './Button.svelte';
+
+  import { Scope } from '$lib/graphql/schema';
+
+  let content = '';
+
+  async function createPost() {
+    const postService = makePostService();
+    await postService.createPost({
+      content,
+      scope: Scope.Public
+    });
+  }
 </script>
 
 <Card>
@@ -13,11 +27,17 @@
         alt=""
       />
       <div class="w-full">
-        <Input name="postbox" type="text" id="postbox" placeholder="Whats on your mind?" />
+        <Input
+          name="postbox"
+          type="text"
+          id="postbox"
+          placeholder="Whats on your mind?"
+          bind:value={content}
+        />
       </div>
     </div>
     <div class="flex justify-end">
-      <Button variant="primary">Post</Button>
+      <Button on:click={createPost} variant="primary">Post</Button>
     </div>
   </div>
 </Card>
