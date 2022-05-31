@@ -9,6 +9,9 @@
 
   let content = '';
 
+  let customClassName: string = null;
+  export { customClassName as class };
+
   async function createPost() {
     const postService = makePostService();
     await postService.createPost({
@@ -18,7 +21,7 @@
   }
 </script>
 
-<Card>
+<Card class={customClassName}>
   <div class="mx-4">
     <div class="flex">
       <img
