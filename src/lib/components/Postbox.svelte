@@ -22,7 +22,7 @@
   <div class="mx-4">
     <div class="flex">
       <img
-        class="w-10 h-10 mr-5 rounded-lg"
+        class="w-11 h-11 mr-5 rounded-lg"
         src="https://avatars.githubusercontent.com/u/96664108?s=200&v=4"
         alt=""
       />
