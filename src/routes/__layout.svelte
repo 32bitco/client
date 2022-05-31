@@ -10,7 +10,7 @@
     cacheExchange,
     fetchExchange,
     makeOperation,
-    initContextClient
+    initContextClient,
   } from '@urql/svelte';
   import { authExchange } from '@urql/exchange-auth';
 

@@ -12,8 +12,7 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. . && eslint --fix .",
-    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-    "prepare": "husky install"
+    "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore ."
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.6.2",
@@ -40,7 +39,6 @@
     "eslint-plugin-svelte3": "^3.2.1",
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
-    "husky": "^7.0.4",
     "js-cookie": "^3.0.1",
     "lint-staged": "^12.3.5",
     "node-fetch": "^3.2.3",

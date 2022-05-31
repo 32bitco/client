@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getContextClient } from '@urql/svelte';
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
@@ -28,8 +29,7 @@
     onSubmit: async ({ username, password }) => {
       try {
         error = null;
-
-        await userStore.login(username, password);
+        await userStore.login(getContextClient(), username, password);
       } catch (err) {
         if (err instanceof TokenCreateError) {
           switch (err.code) {
