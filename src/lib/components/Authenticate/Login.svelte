@@ -28,6 +28,7 @@
       try {
         const tokens = await authService.createToken(username, password);
 
+        localStorage.clear();
         localStorage.setItem('token', tokens.accessToken);
 
         await userStore.me(urqlClient);

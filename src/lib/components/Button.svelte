@@ -18,7 +18,7 @@
     'border py-2 px-6 rounded-full text-sm flex items-center font-semibold ',
     {
       'w-full': fullWidth,
-      'border-gray-600 text-gray-600 hover:bg-gray-100': !variant,
+      'border-gray-200 text-gray-600 hover:bg-gray-100': !variant,
       '!text-white border-blue-600 bg-blue-600 hover:bg-blue-800 hover:!border-blue-800':
         variant === 'primary'
     }

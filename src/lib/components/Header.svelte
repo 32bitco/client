@@ -1,5 +1,6 @@
 <script lang="ts">
   import { userStore } from '$lib/stores/user';
+  import Avatar from './Avatar.svelte';
   import Button from './Button.svelte';
 
   // @binded
@@ -14,7 +15,12 @@
   </figure>
   <div class="flex gap-4">
     {#if $userStore.user}
-      Hi, {$userStore.user.username}!
+      <article class="flex items-center">
+        <Avatar size="sm" user={$userStore.user} />
+        <span class="pl-2">
+          Hi, {$userStore.user.username}!
+        </span>
+      </article>
     {:else}
       <Button variant="primary" on:click={() => (isAuthenticationModalOpen = true)}>Log in</Button>
       <Button on:click={() => (isAuthenticationModalOpen = true)}>Sign up</Button>

@@ -19,7 +19,7 @@ export function makeAuthService(urqlClient: Client): AuthService {
       })
       .toPromise();
 
-    if (data?.tokenCreate.error) {
+    if (Array.isArray(data?.tokenCreate.error)) {
       const err = TokenCreateError.from(error[0]);
 
       throw err;
