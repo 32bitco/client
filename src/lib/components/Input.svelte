@@ -48,7 +48,7 @@
       {value}
       class:border-red-600={!!error}
       class:pl-10={Boolean(icon)}
-      class="px-3 py-3 placeholder-slate-300 text-slate-600 bg-white bg-white rounded text-sm border shadow outline-none focus:outline-none focus:ring w-full"
+      class="text-md text-gray-800 font-semibold bg-gray-50 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white bg-white rounded-lg text-sm outline-none focus:outline-none focus:ring w-full"
       on:change
       on:blur
       on:input={handleInput}

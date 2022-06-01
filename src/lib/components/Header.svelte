@@ -3,8 +3,10 @@
   import Avatar from './Avatar.svelte';
   import Button from './Button.svelte';
 
+  import type { AuthenticationUseCase } from './Authenticate/index.svelte';
+
   // @binded
-  export let isAuthenticationModalOpen: boolean;
+  export let authenticateUseCase: AuthenticationUseCase;
 </script>
 
 <header
@@ -22,8 +24,8 @@
         </span>
       </article>
     {:else}
-      <Button variant="primary" on:click={() => (isAuthenticationModalOpen = true)}>Log in</Button>
-      <Button on:click={() => (isAuthenticationModalOpen = true)}>Sign up</Button>
+      <Button variant="primary" on:click={() => (authenticateUseCase = 'login')}>Log in</Button>
+      <Button on:click={() => (authenticateUseCase = 'signup')}>Sign up</Button>
     {/if}
   </div>
 </header>

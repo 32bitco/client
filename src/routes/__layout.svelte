@@ -17,11 +17,13 @@
   import Authenticate from '$lib/components/Authenticate/index.svelte';
   import Header from '$lib/components/Header.svelte';
   import { userStore } from '$lib/stores/user';
-
-  import '$lib/styles/app.css';
   import { fetchCurrentSession } from '$lib/utils/user';
 
-  let isAuthenticationModalOpen = false;
+  import type { AuthenticationUseCase } from '$lib/components/Authenticate/index.svelte';
+
+  import '$lib/styles/app.css';
+
+  let authenticateUseCase: AuthenticationUseCase = null;
 
   initContextClient({
     url: import.meta.env.VITE_API_URL,
@@ -80,7 +82,7 @@
 
   $: {
     if (typeof document !== 'undefined') {
-      if (isAuthenticationModalOpen && typeof document !== 'undefined') {
+      if (authenticateUseCase && typeof document !== 'undefined') {
         document.documentElement.classList.add('overflow-hidden');
       } else {
         document.documentElement.classList.remove('overflow-hidden');
@@ -93,14 +95,14 @@
   id="app"
   class="relative min-h-screen min-w-screen bg-slate-100 overflow-x-hidden overflow-y-scroll pt-[64px]"
 >
-  <Header bind:isAuthenticationModalOpen />
+  <Header bind:authenticateUseCase />
   <slot />
 </div>
 
-{#if isAuthenticationModalOpen && !$userStore.user}
+{#if authenticateUseCase && !$userStore.user}
   <div
     class="bg-gray-600/25 fixed flex justify-center items-center top-0 left-0 h-screen w-screen min-w-screen grid gap-4 grid-cols-6 md:grid-cols-12"
   >
-    <Authenticate />
+    <Authenticate useCase={authenticateUseCase} />
   </div>
 {/if}
