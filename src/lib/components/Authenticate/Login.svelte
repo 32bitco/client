@@ -6,13 +6,11 @@
 
   import Button from '$lib/components/Button.svelte';
   import { userStore } from '$lib/stores/user';
-  import { TokenCreateError } from '$lib/errors/TokenCreateError';
-  import { TokenCreateErrorCode } from '$lib/graphql/schema';
-
+  import { makeAuthService } from '$lib/services/auth';
   import Input from '../Input.svelte';
 
-  let error;
-
+  const urqlClient = getContextClient();
+  const authService = makeAuthService(urqlClient);
   const dispatch = createEventDispatcher();
   const { handleSubmit, values, errors, isSubmitting } = newForm<{
     username: string;
@@ -28,48 +26,41 @@
     }),
     onSubmit: async ({ username, password }) => {
       try {
-        error = null;
-        await userStore.login(getContextClient(), username, password);
-      } catch (err) {
-        if (err instanceof TokenCreateError) {
-          switch (err.code) {
-            case TokenCreateErrorCode.InvalidCredentials:
-              error = 'Invalid credentials provided';
-              return;
-          }
-        }
+        const tokens = await authService.createToken(username, password);
 
-        error = 'An error ocurred!';
+        localStorage.setItem('token', tokens.accessToken);
+
+        await userStore.me(urqlClient);
+      } catch (err) {
+        console.log(err);
       }
     }
   });
 </script>
 
-<div>
-  <form on:submit={handleSubmit}>
-    <div>
-      <Input
-        type="text"
-        label="Username"
-        name="username"
-        error={$errors.username}
-        bind:value={$values.username}
-      />
-    </div>
-    <div>
-      <Input
-        type="password"
-        label="Password"
-        name="password"
-        error={$errors.password}
-        bind:value={$values.password}
-      />
-    </div>
-    <div class="md:grid md:grid-cols-2 md:gap-4">
-      <Button type="submit" disabled={$isSubmitting}>Login</Button>
-      <Button disabled={$isSubmitting} on:click={() => dispatch('toggleForm')}
-        >Create an account</Button
-      >
-    </div>
-  </form>
-</div>
+<form on:submit={handleSubmit}>
+  <div>
+    <Input
+      type="text"
+      label="Username"
+      name="username"
+      error={$errors.username}
+      bind:value={$values.username}
+    />
+  </div>
+  <div>
+    <Input
+      type="password"
+      label="Password"
+      name="password"
+      error={$errors.password}
+      bind:value={$values.password}
+    />
+  </div>
+  <div class="flex justify-center items-center space-x-4">
+    <Button type="submit" disabled={$isSubmitting} variant="primary">Login</Button>
+    <Button disabled={$isSubmitting} on:click={() => dispatch('toggleForm')}
+      >Create an account</Button
+    >
+  </div>
+</form>

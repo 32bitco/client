@@ -10,7 +10,7 @@
     cacheExchange,
     fetchExchange,
     makeOperation,
-    initContextClient,
+    initContextClient
   } from '@urql/svelte';
   import { authExchange } from '@urql/exchange-auth';
 
@@ -19,6 +19,7 @@
   import { userStore } from '$lib/stores/user';
 
   import '$lib/styles/app.css';
+  import { fetchCurrentSession } from '$lib/utils/user';
 
   let isAuthenticationModalOpen = false;
 
@@ -57,14 +58,9 @@
               (e.extensions?.exception as unknown as { code?: string })?.code === 'UNAUTHORIZED'
           );
         },
-        getAuth: async ({ authState }) => {
+        getAuth: async () => {
           if (typeof localStorage === 'undefined') {
             return null;
-          }
-
-          if (!authState) {
-            // Triggered after an auth error has occurred
-            localStorage.clear();
           }
 
           const token = localStorage.getItem('token');
@@ -79,6 +75,8 @@
       fetchExchange
     ]
   });
+
+  fetchCurrentSession();
 
   $: {
     if (typeof document !== 'undefined') {
@@ -100,7 +98,9 @@
 </div>
 
 {#if isAuthenticationModalOpen && !$userStore.user}
-  <div class="bg-gray-600/25 fixed flex justify-center items-center top-0 left-0 h-screen w-screen">
+  <div
+    class="bg-gray-600/25 fixed flex justify-center items-center top-0 left-0 h-screen w-screen min-w-screen grid gap-4 grid-cols-6 md:grid-cols-12"
+  >
     <Authenticate />
   </div>
 {/if}

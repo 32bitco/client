@@ -29,8 +29,6 @@ export function makeAuthService(urqlClient: Client): AuthService {
       throw error;
     }
 
-    localStorage.setItem('token', data.tokenCreate.tokens.accessToken);
-
     return data.tokenCreate.tokens;
   };
 

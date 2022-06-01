@@ -10,9 +10,7 @@
   }
 </script>
 
-<Card
-  class="h-screen w-screen md:min-w-[400px] md:w-min md:h-2/3 overflow-y-auto overflow-x-hidden shadow-lg rounded-lg bg-white"
->
+<Card class="mx-auto w-max col-span-6 col-start-1 md:col-span-6 md:col-start-4">
   <div class="px-8 py-6 z-10">
     <h3 class="text-2xl font-bold text-center mb-4">
       {#if isLogin}
