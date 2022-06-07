@@ -1,6 +1,8 @@
 <script lang="ts">
   import { makePostService } from '$lib/services/post';
+  import { userStore } from '$lib/stores/user';
 
+  import Avatar from './Avatar.svelte';
   import Card from './Card.svelte';
   import Input from './Input.svelte';
   import Button from './Button.svelte';
@@ -19,16 +21,13 @@
       scope: Scope.Public
     });
   }
+
 </script>
 
 <Card class={customClassName}>
   <div class="mx-4">
     <div class="flex">
-      <img
-        class="w-11 h-11 mr-5 rounded-lg"
-        src="https://avatars.githubusercontent.com/u/96664108?s=200&v=4"
-        alt=""
-      />
+      <!-- <Avatar size="sm" user={$userStore.user} /> -->
       <div class="w-full">
         <Input
           name="postbox"
