@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  export type AvatarSize = 'sm' | 'md';
+  export type AvatarSize = 'sm' | 'md' | 'lg';
 </script>
 
 <script lang="ts">
@@ -13,7 +13,8 @@
   const userNameCharAtZero = user.name.charAt(0).toUpperCase();
   const sizeClassNames = classNames({
     'text-sm h-[35px] w-[35px]': size === 'sm',
-    'text-lg h-[50px] w-[50px]': size === 'md'
+    'text-lg h-[50px] w-[50px]': size === 'md',
+    'text-2xl h-[80px] w-[80px]': size === 'lg'
   });
 
   const initialsClassNames = classNames(

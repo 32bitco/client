@@ -10,7 +10,7 @@
 </script>
 
 <header
-  class="fixed top-0 flex justify-between items-center px-12 bg-white h-[64px] shadow-md w-full"
+  class="fixed top-0 flex justify-between items-center px-4 md:px-12 bg-white h-[64px] shadow-md w-full"
 >
   <figure>
     <img src="https://via.placeholder.com/120x40" alt="Nexus Logo" height="40" width="120" />
