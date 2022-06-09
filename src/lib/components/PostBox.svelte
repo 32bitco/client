@@ -21,13 +21,12 @@
       scope: Scope.Public
     });
   }
-
 </script>
 
 <Card class={customClassName}>
   <div class="mx-4">
     <div class="flex">
-      <!-- <Avatar size="sm" user={$userStore.user} /> -->
+      <Avatar size="sm" user={$userStore?.user} />
       <div class="w-full">
         <Input
           name="postbox"
