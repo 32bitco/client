@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="min-w-screen grid gap-4 grid-cols-6 md:grid-cols-12">
-  {#if !$userStore.user === null}
+  {#if $userStore.user}
     <PostBox class="mt-5 col-span-6 col-start-1 md:col-span-6 md:col-start-4" />
   {/if}
   <Feed class="col-span-6 col-start-1 md:col-span-6 md:col-start-4" />
