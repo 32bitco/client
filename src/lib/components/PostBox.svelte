@@ -15,6 +15,9 @@
   export { customClassName as class };
 
   async function createPost() {
+    if (content === '') {
+      return
+    }
     const postService = makePostService();
     await postService.createPost({
       content,
@@ -33,6 +36,7 @@
           type="text"
           id="postbox"
           placeholder="Whats on your mind?"
+          required
           bind:value={content}
         />
       </div>
