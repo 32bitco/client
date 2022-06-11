@@ -16,7 +16,7 @@
 
   async function createPost() {
     if (content === '') {
-      return
+      return;
     }
     const postService = makePostService();
     await postService.createPost({
