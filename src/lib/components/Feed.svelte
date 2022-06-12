@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getContextClient, queryStore } from '@urql/svelte';
+  import SmileyXEyes from 'phosphor-svelte/lib/SmileyXEyes';
 
   import Post from '$lib/components/Post.svelte';
   import { FeedDocument } from '$lib/graphql/schema';
@@ -28,6 +29,13 @@
     {#each $feed.data.feed.feed.edges.map(({ node }) => node) as post}
       <li>
         <Post {post} />
+      </li>
+    {:else}
+      <li class="text-gray-600 flex flex-col justify-center items-center">
+        <figure class="text-[100px]">
+          <SmileyXEyes />
+        </figure>
+        <strong class="text-xl"> Looking empty... </strong>
       </li>
     {/each}
   {/if}
