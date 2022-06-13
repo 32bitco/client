@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { makePostService } from '$lib/services/post';
-  import { userStore } from '$lib/stores/user';
-
+  import { getContextClient } from '@urql/svelte';
   import { newForm } from 'manzana';
   import * as Yup from 'yup';
+
+  import { makePostService } from '$lib/services/post';
+  import { userStore } from '$lib/stores/user';
 
   import Avatar from './Avatar.svelte';
   import Card from './Card.svelte';
@@ -12,6 +13,8 @@
 
   import { Scope } from '$lib/graphql/schema';
 
+  const urqlClient = getContextClient();
+  const postService = makePostService(urqlClient);
   const { handleSubmit, values, errors, isSubmitting } = newForm<{
     content: string;
   }>({
@@ -23,7 +26,6 @@
     }),
     onSubmit: async ({ content }) => {
       try {
-        const postService = makePostService();
         await postService.createPost({
           content,
           scope: Scope.Public
