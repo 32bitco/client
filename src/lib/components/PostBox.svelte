@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="flex justify-end">
-        <Button type="submit" disabled={$isSubmitting} variant="primary">Post</Button>
+        <Button type="submit" isLoading={$isSubmitting} variant="primary">Post</Button>
       </div>
     </div>
   </form>

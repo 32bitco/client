@@ -32,6 +32,6 @@ export function makePostService(urqlClient: Client): PostService {
   };
 
   return {
-    createPost,
+    createPost
   };
 }
