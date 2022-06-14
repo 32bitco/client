@@ -20,7 +20,7 @@
     'border py-2 px-6 rounded-full text-sm flex items-center font-semibold ',
     {
       'w-full': fullWidth,
-      '!bg-gray-100 !text-gray-400': isLoading || disabled,
+      '!opacity-50 !text-gray-400': isLoading || disabled,
       '!cursor-not-allowed': disabled,
       '!cursor-progress': isLoading,
       'border-gray-200 text-gray-600 hover:bg-gray-100': !variant,

@@ -41,6 +41,7 @@
     "graphql-tag": "^2.12.6",
     "js-cookie": "^3.0.1",
     "lint-staged": "^12.3.5",
+    "manzana": "^0.2.12",
     "node-fetch": "^3.2.3",
     "phosphor-svelte": "^1.1.2",
     "postcss": "^8.4.6",
@@ -55,7 +56,6 @@
     "unsplash-js": "^7.0.15"
   },
   "dependencies": {
-    "manzana": "^0.2.8",
     "urql": "^2.2.0"
   }
 }
