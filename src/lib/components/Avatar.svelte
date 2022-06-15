@@ -10,9 +10,12 @@
   export let user: UserFragmentFragment;
   export let size: AvatarSize = 'md';
 
+  let customClassName: string = null;
+  export { customClassName as class };
+
   const userNameCharAtZero = user.name.charAt(0).toUpperCase();
   const sizeClassNames = classNames({
-    'text-sm h-[35px] w-[35px]': size === 'sm',
+    'text-md h-[44px] w-[44px]': size === 'sm',
     'text-lg h-[50px] w-[50px]': size === 'md'
   });
 
@@ -45,7 +48,11 @@
     }
   );
 
-  const containerClassNames = classNames('rounded-lg overflow-hidden', sizeClassNames);
+  const containerClassNames = classNames(
+    'rounded-lg overflow-hidden',
+    sizeClassNames,
+    customClassName
+  );
 </script>
 
 <figure class={containerClassNames}>
