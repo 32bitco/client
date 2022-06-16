@@ -71,7 +71,7 @@ export function makeUserService(urqlClient: Client): UserService {
       throw error;
     }
 
-    return data.users.edges[0].node;
+    return data.users.users.edges[0].node;
   };
 
   return {
