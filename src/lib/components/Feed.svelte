@@ -13,12 +13,62 @@
 
   export let posts: OperationResultStore;
 
-  let className = classNames('w-full space-y-4', customClassNames);
+  let className = classNames('w-full space-y-4 py-4', customClassNames);
 </script>
 
 <ul class={className}>
   {#if $posts.fetching}
-    <li class="pt-4">
+    <li>
+      <Card class="h-[122px]">
+        <Placeholder width="100%">
+          <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
+          <rect x="75" y="3" rx="8" ry="8" width="149" height="22" />
+          <rect x="77" y="41" rx="8" ry="8" width="110" height="19" />
+          <rect x="2" y="72" rx="8" ry="8" width="394" height="19" />
+        </Placeholder>
+      </Card>
+    </li>
+    <li>
+      <Card class="h-[122px]">
+        <Placeholder width="100%">
+          <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
+          <rect x="75" y="3" rx="8" ry="8" width="149" height="22" />
+          <rect x="77" y="41" rx="8" ry="8" width="110" height="19" />
+          <rect x="2" y="72" rx="8" ry="8" width="394" height="19" />
+        </Placeholder>
+      </Card>
+    </li>
+    <li>
+      <Card class="h-[122px]">
+        <Placeholder width="100%">
+          <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
+          <rect x="75" y="3" rx="8" ry="8" width="149" height="22" />
+          <rect x="77" y="41" rx="8" ry="8" width="110" height="19" />
+          <rect x="2" y="72" rx="8" ry="8" width="394" height="19" />
+        </Placeholder>
+      </Card>
+    </li>
+    <li>
+      <Card class="h-[122px]">
+        <Placeholder width="100%">
+          <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
+          <rect x="75" y="3" rx="8" ry="8" width="149" height="22" />
+          <rect x="77" y="41" rx="8" ry="8" width="110" height="19" />
+          <rect x="2" y="72" rx="8" ry="8" width="394" height="19" />
+        </Placeholder>
+      </Card>
+    </li>
+    <li>
+      <Card class="h-[122px]">
+        <Placeholder width="100%">
+          <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
+          <rect x="75" y="3" rx="8" ry="8" width="149" height="22" />
+          <rect x="77" y="41" rx="8" ry="8" width="110" height="19" />
+          <rect x="2" y="72" rx="8" ry="8" width="394" height="19" />
+        </Placeholder>
+      </Card>
+    </li>
+    <li>
       <Card class="h-[122px]">
         <Placeholder width="100%">
           <rect x="2" y="2" rx="8" ry="8" width="63" height="62" />
