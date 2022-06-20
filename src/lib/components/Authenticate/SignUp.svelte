@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { getContextClient } from '@urql/svelte';
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
 
+  import { getContextServices } from '$lib/services';
   import Input from '$lib/components/Input.svelte';
-  import { makeUserService } from '$lib/services/user';
   import { AccountRegisterError } from '$lib/errors/AccountCreateError';
   import { AccountRegisterErrorCode, Gender, Pronoun } from '$lib/graphql/schema';
 
   let error = null;
 
   const dispatch = createEventDispatcher();
+  const services = getContextServices();
   const { handleSubmit, values, errors, isSubmitting } = newForm<{
     name: string;
     lastName: string;
@@ -44,10 +44,9 @@
     onSubmit: async (values) => {
       try {
         error = null;
-        const userService = makeUserService(getContextClient());
         const birthdate = new Date(values.birthdate).toJSON();
 
-        await userService.accountRegister({
+        await services.user.accountRegister({
           name: values.name,
           lastName: values.lastName,
           email: values.email,

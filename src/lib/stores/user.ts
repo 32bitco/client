@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store';
 
-import { makeUserService } from '$lib/services/user';
+import { getContextServices } from '$lib/services';
 
-import type { Client } from '@urql/svelte';
 import type { UserFragmentFragment } from '$lib/graphql/schema';
 
 function makeUserStore() {
@@ -13,9 +12,9 @@ function makeUserStore() {
   });
   const { subscribe, set, update } = store;
 
-  const me = async (urqlClient: Client): Promise<void> => {
-    const userService = makeUserService(urqlClient);
-    const user = await userService.me();
+  const me = async (): Promise<void> => {
+    const services = getContextServices();
+    const user = await services.user.me();
 
     set({
       user

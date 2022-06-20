@@ -1,16 +1,14 @@
 <script lang="ts">
-  import { getContextClient } from '@urql/svelte';
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
 
+  import { getContextServices } from '$lib/services';
   import Button from '$lib/components/Button.svelte';
   import { userStore } from '$lib/stores/user';
-  import { makeAuthService } from '$lib/services/auth';
   import Input from '../Input.svelte';
 
-  const urqlClient = getContextClient();
-  const authService = makeAuthService(urqlClient);
+  const services = getContextServices();
   const dispatch = createEventDispatcher();
   const { handleSubmit, values, errors, isSubmitting } = newForm<{
     username: string;
@@ -26,12 +24,12 @@
     }),
     onSubmit: async ({ username, password }) => {
       try {
-        const tokens = await authService.createToken(username, password);
+        const tokens = await services.auth.createToken(username, password);
 
         localStorage.clear();
         localStorage.setItem('token', tokens.accessToken);
 
-        await userStore.me(urqlClient);
+        await userStore.me();
       } catch (err) {
         console.log(err);
       }

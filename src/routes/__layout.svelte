@@ -17,6 +17,7 @@
   import Authenticate from '$lib/components/Authenticate/index.svelte';
   import Header from '$lib/components/Header.svelte';
   import { userStore } from '$lib/stores/user';
+  import { initServicesContext } from '$lib/services';
   import { fetchCurrentSession } from '$lib/utils/user';
 
   import type { AuthenticationUseCase } from '$lib/components/Authenticate/index.svelte';
@@ -25,7 +26,7 @@
 
   let authenticateUseCase: AuthenticationUseCase = null;
 
-  initContextClient({
+  const urqlClient = initContextClient({
     url: import.meta.env.VITE_API_URL,
     exchanges: [
       dedupExchange,
@@ -78,6 +79,7 @@
     ]
   });
 
+  initServicesContext(urqlClient);
   fetchCurrentSession();
 
   $: {

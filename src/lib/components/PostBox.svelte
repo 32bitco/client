@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { getContextClient } from '@urql/svelte';
   import { newForm } from 'manzana';
   import { createEventDispatcher } from 'svelte';
   import * as Yup from 'yup';
 
-  import { makePostService } from '$lib/services/post';
+  import { getContextServices } from '$lib/services';
   import { userStore } from '$lib/stores/user';
 
   import Avatar from './Avatar.svelte';
@@ -15,8 +14,7 @@
   import { Scope } from '$lib/graphql/schema';
 
   const dispatch = createEventDispatcher();
-  const urqlClient = getContextClient();
-  const postService = makePostService(urqlClient);
+  const services = getContextServices();
   const { handleSubmit, values, errors, isSubmitting } = newForm<{
     content: string;
   }>({
@@ -28,7 +26,7 @@
     }),
     onSubmit: async ({ content }, helpers) => {
       try {
-        await postService.createPost({
+        await services.post.createPost({
           content,
           scope: Scope.Public
         });

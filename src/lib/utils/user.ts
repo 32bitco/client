@@ -1,5 +1,3 @@
-import { getContextClient } from '@urql/svelte';
-
 import { userStore } from '$lib/stores/user';
 
 /**
@@ -16,8 +14,7 @@ import { userStore } from '$lib/stores/user';
 export async function fetchCurrentSession() {
   if (typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
     try {
-      const urqlClient = getContextClient();
-      await userStore.me(urqlClient);
+      await userStore.me();
     } catch (err) {
       const firstError = Array.isArray(err.graphQLErrors) ? err.graphQLErrors[0] : null;
 
