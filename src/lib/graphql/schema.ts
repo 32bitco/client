@@ -487,6 +487,43 @@ export type MeQuery = {
   };
 };
 
+export type FindUserByUsernameQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+export type FindUserByUsernameQuery = {
+  __typename?: 'Query';
+  users: {
+    __typename?: 'Users';
+    users?: {
+      __typename?: 'UserConnection';
+      edges?: Array<{
+        __typename?: 'UserEdge';
+        node: {
+          __typename?: 'User';
+          id: any;
+          name: string;
+          lastName: string;
+          email: string;
+          username: string;
+          birthdate: any;
+          gender: Gender;
+          pronoun: Pronoun;
+          customGender?: string | null;
+          createdAt: any;
+          updatedAt: any;
+        };
+      } | null> | null;
+    } | null;
+    error?: {
+      __typename?: 'UserError';
+      code: UserErrorCode;
+      field?: string | null;
+      message?: string | null;
+    } | null;
+  };
+};
+
 export type AccountRegisterMutationVariables = Exact<{
   input: AccountRegisterInput;
 }>;
@@ -654,6 +691,30 @@ export const MeDocument = gql`
 
 export function useMeQuery(options?: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'>) {
   return Urql.useQuery<MeQuery>({ query: MeDocument, ...options });
+}
+export const FindUserByUsernameDocument = gql`
+  query FindUserByUsername($username: String!) {
+    users(filter: { username: $username }) {
+      users {
+        edges {
+          node {
+            ...UserFragment
+          }
+        }
+      }
+      error {
+        ...UserErrorFragment
+      }
+    }
+  }
+  ${UserFragmentFragmentDoc}
+  ${UserErrorFragmentFragmentDoc}
+`;
+
+export function useFindUserByUsernameQuery(
+  options: Omit<Urql.UseQueryArgs<FindUserByUsernameQueryVariables>, 'query'>
+) {
+  return Urql.useQuery<FindUserByUsernameQuery>({ query: FindUserByUsernameDocument, ...options });
 }
 export const AccountRegisterDocument = gql`
   mutation AccountRegister($input: AccountRegisterInput!) {

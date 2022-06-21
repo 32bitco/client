@@ -79,5 +79,4 @@ export function makeUserService(urqlClient: Client): UserService {
     me,
     findUserByUsername
   };
-
 }
