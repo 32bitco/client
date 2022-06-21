@@ -35,6 +35,21 @@ query Me {
   }
 }
 
+query FindUserByUsername($username: String!) {
+  users(filter: { username: $username }) {
+    users {
+      edges {
+        node {
+          ...UserFragment
+        }
+      }
+    }
+    error {
+      ...UserErrorFragment
+    }
+  }
+}
+
 mutation AccountRegister($input: AccountRegisterInput!) {
   accountRegister(input: $input) {
     user {
